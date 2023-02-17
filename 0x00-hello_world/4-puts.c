@@ -1,10 +1,14 @@
-   #include<stdio.h>
+#include <stdio.h>
 
-     int mai(void)
-     {
-     char mystr[] = "Programming is like building a multilingual puzzle";
+/**
+* main - Entry point
+*
+* Return: This return 0 (success)
+*/
 
-     puts(mystr);
+int main(void)
 
-     return 0;
-     }
+{
+	puts("\"Programming is like building a multilingual puzzle");
+	return (0);
+}
