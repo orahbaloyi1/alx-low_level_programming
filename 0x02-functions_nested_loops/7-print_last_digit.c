@@ -3,17 +3,20 @@
 /**
  * print_last_digit - function that prints last digit
  *
- * @i: function parameter
+ * @n: function parameter
  *
- * Return: k
+ * Return: Value of the last digit of number
  */
 
-int print_last_digit(int i)
+int print_last_digit(int n)
 {
-	int k;
+	int last;
 
-	k = i % 10;
-	if (i < 0)
-		k = -k;
-	return (k);
+	last = n % 10;
+	if (last < 0)
+	{
+		last = last * -1;
+	}
+	_putchar(last + '0');
+	return (last);
 }
