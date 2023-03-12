@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include "main.h"
+
 /**
- * main - main function
- * Return: Always 0
+ *main - prints the name of the function
+ *@arg: number of arguments
+ *@argv: array of arguments
+ *Return: Always 0
  */
-int main(void)
+int main(int argc __attribute__((unused)), char *argv[])
 {
-	printf("./mynameis\n");
+	printf("%s\n", *argv);
 	return (0);
 }
