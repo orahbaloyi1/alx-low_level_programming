@@ -6,9 +6,9 @@ char *create_buffer(char *file);
 void close_file(int fd);
 
 /**
- * create_buffer - Allocates 1024 bytes for a buffer.
- * @file: The name of the file buffer
- * Return: A pointer to the new  buffer.
+ * create_buffer - disctributes bytes equivalentt to 1024 for a buffer.
+ * @file: The name of the file buffer.
+ * Return: A pointer to the new buffer that is allocated.
  */
 char *create_buffer(char *file)
 {
@@ -17,15 +17,15 @@ char *create_buffer(char *file)
 	buf  = malloc(sizeof(char) * 1024);
 	if (buf == NULL)
 	{
-		fprintf(stderr, "Error: Failed to creat buffer for file %s\n", file);
+		dprintf(STDERR_FILENO, "Error: Failed to creat buffer for file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
 	return (buf);
 }
 
 /**
- * close_file - Closes file descriptors.
- * @fd: The file descriptor to be closed.
+ * close_file - Closes file.
+ * @fd: closes file descriptor..
  */
 void close_file(int fd)
 {
@@ -42,8 +42,8 @@ void close_file(int fd)
 /**
  * main - Copies the contents to another file.
  * @argc: The number of arguments.
- * @argv: An array of pointers to the arguments.
- * Return: 0 on success.
+ * @argv: pointers to an array to  the arguments.
+ * Return: always  0 on success.
  * Description: If exit code 97.
  *              If exit code 98.
  *              If exit code 99.
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	}
 
 	buf = create_buffer(argv[2]);
-
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	from = open(argv[1], O_RDONLY);
 	r = read(from, buf, 1024);
 	if (from == -1 || r == -1)
@@ -74,7 +74,6 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	w = write(to, buf, r);
 	if (to == -1 || w == -1)
 	{
