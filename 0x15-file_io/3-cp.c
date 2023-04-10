@@ -17,8 +17,8 @@ char *create_buffer(char *file)
 	buf  = malloc(sizeof(char) * 1024);
 	if (buf == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: Failed to creat buffer for file %s\n", file);
-		exit(EXIT_FAILURE);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file);
+		exit(99);
 	}
 	return (buf);
 }
