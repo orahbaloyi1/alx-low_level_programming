@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 {
 	int from;
 	int to;
-	int r;
+	int f;
 	int w;
 	char *buf;
 
@@ -66,23 +66,26 @@ int main(int argc, char *argv[])
 	buf = create_buffer(argv[2]);
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 	from = open(argv[1], O_RDONLY);
-	r = read(from, buf, 1024);
-	if (from == -1 || r == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		free(buf);
-		exit(98);
-	}
+	f = read(from, buf, 1024);
+	do {
+		if (from == -1 || f == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+			free(buf);
+			exit(98);
+		}
 
-	w = write(to, buf, r);
-	if (to == -1 || w == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		free(buf);
-		exit(99);
+		w = write(to, buf, f);
+		if (to == -1 || w == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			free(buf);
+			exit(99);
+		}
+		f = read(from, buf, 1024);
+		to = open(argv[2], O_WRONLY | O_APPEND);
 
-	} while (r > 0);
-
+	} while (f > 0);
 	free(buf);
 	close_file(from);
 	close_file(to);
