@@ -14,13 +14,19 @@ unsigned int binary_to_uint(const char *b)
 	if (!b)
 		return (0);
 
-	for (x = 0; b[x]; x++)
+	for (x = 0; b[x] != '\0'; x++)
 	{
-		if (b[x] < '0' || b[x] > '1')
+		if (b[x] == '0' || b[x] == '1')
+		{
+			val = val << 1;
+			if (b[x] == '1')
+				val |= 1;
+		}
+		else
+		{
 			return (0);
-		val = 2 * val + (b[x] - '0');
+		}
 	}
-
 	return (val);
 }
 
